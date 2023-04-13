@@ -1,12 +1,12 @@
 //
-//  DrawShapeCalculator.swift
+//  ShapeCalculator.swift
 //  
 //
 //  Created by Michael Geurtjens on 11/4/2023.
 //
 
 import Foundation
-struct DrawShapeCalculator {
+struct ShapeCalculator {
     static func execute(placements: [PlacementModel]) -> ShapeModel {
         // We have to add the blocks at the end of everything
         let (maxX, maxY) = calcMax(placements: placements)

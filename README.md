@@ -1,5 +1,7 @@
 # TextToShapeMaker
 
+Swift Package that has a function Executor.execute
+
 Converts text like "MiCHAEL:KAORi,MICHAEl:lISA" into a shape.
 
 ```

@@ -6,10 +6,10 @@
 //
 
 import Foundation
-struct ShapeModel {
-    let score: Int
-    let width: Int
-    let height: Int
-    let placements: [PlacementModel]
-    let text: String
+public struct ShapeModel {
+    public let score: Int
+    public let width: Int
+    public let height: Int
+    public let placements: [PlacementModel]
+    public let text: String
 }

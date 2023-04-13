@@ -1,5 +1,5 @@
 //
-//  DrawShapeCalculatorTests.swift
+//  ShapeCalculatorTests.swift
 //  
 //
 //  Created by Michael Geurtjens on 11/4/2023.
@@ -7,13 +7,13 @@
 
 import XCTest
 @testable import TextToShapeMaker
-final class DrawShapeCalculatorTests: XCTestCase {
+final class ShapeCalculatorTests: XCTestCase {
 
     func test_another() throws {
     
         let instructions = InstructionParser.execute("nAZARETH:nUTS,NAzARETH:zION,NUTs:sING")
         let placements = PlacementCalculator.execute(instructions: instructions)
-        let shape = DrawShapeCalculator.execute(placements: placements)
+        let shape = ShapeCalculator.execute(placements: placements)
         print(shape.text)
     }
     
@@ -24,7 +24,7 @@ final class DrawShapeCalculatorTests: XCTestCase {
         let (myStringInstructions, _) = InstructionSequencer.executeGivingText(instructions: unsequencedInstructions)
         let (instructions, success) = InstructionSequencer.execute(instructions: unsequencedInstructions)
         let placements = PlacementCalculator.execute(instructions: instructions)
-        let shape = DrawShapeCalculator.execute(placements: placements)
+        let shape = ShapeCalculator.execute(placements: placements)
         print(shape.text)
         print(success)
         print(myStringInstructions)
@@ -33,7 +33,7 @@ final class DrawShapeCalculatorTests: XCTestCase {
     func test_OneRotated() throws {
         let instructions = InstructionParser.execute("!MiCHAEL:KAORi")
         let placements = PlacementCalculator.execute(instructions: instructions)
-        let shape = DrawShapeCalculator.execute(placements: placements)
+        let shape = ShapeCalculator.execute(placements: placements)
         
         let expected = "" +
           "     . \n" +
@@ -71,7 +71,7 @@ final class DrawShapeCalculatorTests: XCTestCase {
     func test_One() throws {
         let instructions = InstructionParser.execute("MiCHAEL:KAORi")
         let placements = PlacementCalculator.execute(instructions: instructions)
-        let shape = DrawShapeCalculator.execute(placements: placements)
+        let shape = ShapeCalculator.execute(placements: placements)
         
         let expected = "" +
           "  .      \n" +
@@ -109,7 +109,7 @@ final class DrawShapeCalculatorTests: XCTestCase {
         let instructions = InstructionParser.execute("MiCHAEL:KAORi,MICHAEl:lISA")
         
         let placements = PlacementCalculator.execute(instructions: instructions)
-        let shape = DrawShapeCalculator.execute(placements: placements)
+        let shape = ShapeCalculator.execute(placements: placements)
         
         let expected = "" +
           "  .      \n" +
@@ -155,7 +155,7 @@ final class DrawShapeCalculatorTests: XCTestCase {
         let instructions = InstructionParser.execute("MiCHAEL:KAORi,MICHAEl:lISA,LISa:SaNDY")
         
         let placements = PlacementCalculator.execute(instructions: instructions)
-        let shape = DrawShapeCalculator.execute(placements: placements)
+        let shape = ShapeCalculator.execute(placements: placements)
         
         let expected = "" +
           "  .         \n" +
@@ -206,7 +206,7 @@ final class DrawShapeCalculatorTests: XCTestCase {
         let instructions = InstructionParser.execute("!ABc:cEH,CEh:FGh,fGH:ADf")
         
         let placements = PlacementCalculator.execute(instructions: instructions)
-        let shape = DrawShapeCalculator.execute(placements: placements)
+        let shape = ShapeCalculator.execute(placements: placements)
         
         let expected = "" +
           " . . \n" +
@@ -222,7 +222,7 @@ final class DrawShapeCalculatorTests: XCTestCase {
         let instructions = InstructionParser.execute("ABc:cEH,CEh:FGh,fGH:ADf")
         
         let placements = PlacementCalculator.execute(instructions: instructions)
-        let shape = DrawShapeCalculator.execute(placements: placements)
+        let shape = ShapeCalculator.execute(placements: placements)
         
         let expected = "" +
           " . . \n" +
@@ -237,21 +237,21 @@ final class DrawShapeCalculatorTests: XCTestCase {
     func testTwoByTwo9005() throws {
         let instructions = InstructionParser.execute("TENOr:TrIO,TRiO:PiNZA,pINZA:OpUS,TRIo:DUo")
         let placements = PlacementCalculator.execute(instructions: instructions)
-        let shape = DrawShapeCalculator.execute(placements: placements)
+        let shape = ShapeCalculator.execute(placements: placements)
         print(shape.text)
     }
     // You can join these two together to form what is in 9005
     func testTwoByTwo9005_2() throws {
         let instructions = InstructionParser.execute("dUO:dUET,DuET:CHORuS,DuO:OPuS")
         let placements = PlacementCalculator.execute(instructions: instructions)
-        let shape = DrawShapeCalculator.execute(placements: placements)
+        let shape = ShapeCalculator.execute(placements: placements)
         print(shape.text)
     }
     
     func testMerge9005() throws {
         let instructions = InstructionParser.execute("TENOr:TrIO,TRiO:PiNZA,pINZA:OpUS,TRIo:DUo + dUO:dUET,DuET:CHORuS,DuO:OPuS")
         let placements = PlacementCalculator.execute(instructions: instructions)
-        let shape = DrawShapeCalculator.execute(placements: placements)
+        let shape = ShapeCalculator.execute(placements: placements)
         print(shape.text)
     }
     
