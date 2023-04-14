@@ -8,8 +8,8 @@
 import Foundation
 struct InstructionSequencer {
     
-    static func executeGivingText(instructions: [InstructionModel]) -> (String, Bool) {
-        let (instructions, success) = execute(instructions: instructions)
+    static func executeGivingText(instructions: [InstructionModel]) -> (String, Bool, [String]) {
+        let (instructions, success, wordsInGrid) = execute(instructions: instructions)
         
         var result = ""
         for instruction in instructions {
@@ -18,18 +18,18 @@ struct InstructionSequencer {
             }
             result += instruction.text
         }
-        return (result, success)
+        return (result, success, wordsInGrid)
     }
     
     // The bool means that was this successful, that is have all the instructions been processed now
-    static func execute(instructions:[InstructionModel]) -> ([InstructionModel], Bool) {
+    static func execute(instructions:[InstructionModel]) -> ([InstructionModel], Bool, [String]) {
 
         // We only want to calculate using the valid instructions
         var instructions = instructions.filter {$0.isValid == .success}
         
         // So if there are no valid instructions then lets exit immediately
         if instructions.count == 0 {
-            return ([],true)
+            return ([],true, [])
         }
         
         
@@ -72,7 +72,7 @@ struct InstructionSequencer {
             haveAllInstructionsBeenProcessed = false
         }
         
-        return (result, haveAllInstructionsBeenProcessed)
+        return (result, haveAllInstructionsBeenProcessed, wordsInGrid)
     }
     
     static func reverseInstruction(_ i: InstructionModel) -> InstructionModel {

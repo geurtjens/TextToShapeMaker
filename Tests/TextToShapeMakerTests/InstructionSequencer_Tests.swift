@@ -1,5 +1,5 @@
 //
-//  InstructionSequencerTests.swift
+//  InstructionSequencer_Tests.swift
 //  
 //
 //  Created by Michael Geurtjens on 13/4/2023.
@@ -7,7 +7,7 @@
 
 import XCTest
 @testable import TextToShapeMaker
-final class InstructionSequencerTests: XCTestCase {
+final class InstructionSequencer_Tests: XCTestCase {
 
    
     func testExample() throws {
@@ -15,11 +15,13 @@ final class InstructionSequencerTests: XCTestCase {
         
         let instructions = InstructionParser.parse(input, rotate: false)
         
-        let (output, success) = InstructionSequencer.executeGivingText(instructions: instructions)
+        let (output, success, wordsInShape) = InstructionSequencer.executeGivingText(instructions: instructions)
         
         print(input)
         print(output)
         print(success)
+        print(wordsInShape)
+        
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         // Any test you write for XCTest can be annotated as throws and async.
@@ -34,7 +36,7 @@ final class InstructionSequencerTests: XCTestCase {
         
         let instructions = InstructionParser.execute(input)
         
-        let (output, success) = InstructionSequencer.executeGivingText(instructions: instructions)
+        let (output, success, wordsInShape) = InstructionSequencer.executeGivingText(instructions: instructions)
         
         
         let expected = "nAZARETH:nUTS,NAzARETH:zION,NUTs:sING,NAZAReTH:eVE,NAZARETh:hOLLY,EVe:BeLLS,HOLLy:JOy,jOY:jELLY,JElLY:HAZElNUT,HAZELNUt:StAR,HAzELNUT:AzURE,AZUrE:MErRY,hAZELNUT:hYMN,HyMN:TURKEy,TuRKEY:SAuCE,sAUCE:TOYs,tOYS:tOAST,TOASt:tREE,TOyS:FAMILy,HYMn:INn,TURkEY:PORk,FAMiLY:WHiTE,wHITE:SNOw,WHITe:CAKe"
@@ -42,6 +44,7 @@ final class InstructionSequencerTests: XCTestCase {
         print(output)
         XCTAssertEqual(expected, output)
         XCTAssertTrue(success)
+        print(wordsInShape)
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         // Any test you write for XCTest can be annotated as throws and async.

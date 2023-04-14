@@ -1,5 +1,5 @@
 //
-//  PlacementCalculatorTests.swift
+//  PlacementCalculator_Tests.swift
 //  
 //
 //  Created by Michael Geurtjens on 11/4/2023.
@@ -7,7 +7,7 @@
 
 import XCTest
 @testable import TextToShapeMaker
-final class PlacementCalculatorTests: XCTestCase {
+final class PlacementCalculator_Tests: XCTestCase {
 
     func test_OneInstruction() throws {
         let instructions = InstructionParser.execute("MiCHAEL:KAORi")

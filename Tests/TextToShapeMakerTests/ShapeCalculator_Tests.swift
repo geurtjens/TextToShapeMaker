@@ -1,5 +1,5 @@
 //
-//  ShapeCalculatorTests.swift
+//  ShapeCalculator_Tests.swift
 //  
 //
 //  Created by Michael Geurtjens on 11/4/2023.
@@ -7,7 +7,7 @@
 
 import XCTest
 @testable import TextToShapeMaker
-final class ShapeCalculatorTests: XCTestCase {
+final class ShapeCalculator_Tests: XCTestCase {
 
     func test_another() throws {
     
@@ -21,13 +21,24 @@ final class ShapeCalculatorTests: XCTestCase {
     
         let unsequencedInstructions = InstructionParser.execute("nAZARETH:nUTS,NAzARETH:zION,sING:NUTs,SInG:ZIOn + NAZAReTH:eVE,NAZARETh:hOLLY,BeLLS:EVe,BELlS:HOlLY + JOy:HOLLy + jOY:jELLY,HAZElNUT:JElLY,HAZELNUt:StAR + HAzELNUT:AzURE,HAZElNUT:JElLY,MErRY:AZUrE,MERRy:JELLy + hAZELNUT:hYMN,HAzELNUT:AzURE,mERRY:HYmN,MErRY:AZUrE + TURKEy:HyMN + TuRKEY:SAuCE + tOYS:tOAST,TOYs:sAUCE,tREE:TOASt,TREe:SAUCe + TOyS:FAMILy + INn:HYMn + TURkEY:PORk + WHiTE:FAMiLY + wHITE:SNOw + WHITe:CAKe")
         
-        let (myStringInstructions, _) = InstructionSequencer.executeGivingText(instructions: unsequencedInstructions)
-        let (instructions, success) = InstructionSequencer.execute(instructions: unsequencedInstructions)
+        let (myStringInstructions, _, _) = InstructionSequencer.executeGivingText(instructions: unsequencedInstructions)
+        let (instructions, success, wordsInShape) = InstructionSequencer.execute(instructions: unsequencedInstructions)
         let placements = PlacementCalculator.execute(instructions: instructions)
         let shape = ShapeCalculator.execute(placements: placements)
         print(shape.text)
         print(success)
         print(myStringInstructions)
+        print(wordsInShape)
+        
+        
+        
+        // This is the order that words are placed in the grid according to the instructions given
+        let wordsInShapeExpected = ["NAZARETH", "NUTS", "ZION", "SING", "EVE", "HOLLY", "BELLS", "JOY", "JELLY", "HAZELNUT", "STAR", "AZURE", "MERRY", "HYMN", "TURKEY", "SAUCE", "TOYS", "TOAST", "TREE", "FAMILY", "INN", "PORK", "WHITE", "SNOW", "CAKE"]
+        XCTAssertEqual(wordsInShapeExpected.count, wordsInShape.count)
+        for i in wordsInShape.indices {
+            XCTAssertEqual(wordsInShapeExpected[i], wordsInShape[i])
+        }
+        
     }
     
     func test_OneRotated() throws {
@@ -102,7 +113,7 @@ final class ShapeCalculatorTests: XCTestCase {
         XCTAssertEqual(0, b.y)
         
         
-        print(shape.text)
+        //print(shape.text)
     }
     
     func test_Two() throws {
@@ -148,7 +159,7 @@ final class ShapeCalculatorTests: XCTestCase {
         XCTAssertEqual(4, c.y)
         
         
-        print(shape.text)
+        //print(shape.text)
     }
     
     func test_Three() throws {
@@ -199,7 +210,7 @@ final class ShapeCalculatorTests: XCTestCase {
         XCTAssertEqual(5, d.x)
         XCTAssertEqual(8, d.y)
         
-        print(shape.text)
+        //print(shape.text)
     }
     
     func test_SquareReversed() throws {
@@ -215,7 +226,7 @@ final class ShapeCalculatorTests: XCTestCase {
           ".CEH.\n" +
           " . . "
         XCTAssertEqual(expected, shape.text)
-        print(shape.text)
+        //print(shape.text)
     }
     
     func test_Square() throws {
@@ -231,7 +242,7 @@ final class ShapeCalculatorTests: XCTestCase {
           ".FGH.\n" +
           " . . "
         XCTAssertEqual(expected, shape.text)
-        print(shape.text)
+        //print(shape.text)
     }	
     
     func testTwoByTwo9005() throws {

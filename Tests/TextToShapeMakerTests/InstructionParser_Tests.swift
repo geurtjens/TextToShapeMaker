@@ -1,5 +1,5 @@
 //
-//  InstructionParserTests.swift
+//  InstructionParser_Tests.swift
 //  
 //
 //  Created by Michael Geurtjens on 9/4/2023.
@@ -7,7 +7,7 @@
 
 import XCTest
 @testable import TextToShapeMaker
-final class InstructionParserTests: XCTestCase {
+final class InstructionParser_Tests: XCTestCase {
 
     func test_Blank() throws {
         let result = InstructionParser.execute("")
@@ -160,7 +160,7 @@ final class InstructionParserTests: XCTestCase {
         XCTAssertEqual("KAREN", b.toWord)
         XCTAssertEqual(3, b.toPos)
         
-        let (game, success) = InstructionSequencer.execute(instructions: instructions)
+        let (game, success, _) = InstructionSequencer.execute(instructions: instructions)
         XCTAssertFalse(success)
         XCTAssertEqual(1,game.count)
         let c = game[0]
@@ -170,7 +170,8 @@ final class InstructionParserTests: XCTestCase {
         XCTAssertEqual(4, c.toPos)
         XCTAssertEqual(InstructionValidationType.success, c.isValid)
         
-        let (resultText, resultTextSuccess) = InstructionSequencer.executeGivingText(instructions: instructions)
+        
+        let (resultText, resultTextSuccess,_) = InstructionSequencer.executeGivingText(instructions: instructions)
         XCTAssertEqual("MiCHAEL:KAORi",resultText)
         XCTAssertFalse(resultTextSuccess)
     }
@@ -194,7 +195,7 @@ final class InstructionParserTests: XCTestCase {
         XCTAssertEqual("KAORI", b.toWord)
         XCTAssertEqual(1, b.toPos)
         
-        let (game, isConnected) = InstructionSequencer.execute(instructions: instructions)
+        let (game, isConnected, _) = InstructionSequencer.execute(instructions: instructions)
         
         // Success means that we eliminated the instruction that contained words we already have but that is not an error, just that we have a collection of interlocks of which the last one is redundant
         // But the whole structure is all connected just that we did not act on one of the instructions
@@ -207,7 +208,7 @@ final class InstructionParserTests: XCTestCase {
         XCTAssertEqual(4, c.toPos)
         XCTAssertEqual(InstructionValidationType.success, c.isValid)
         
-        let (resultText, success) = InstructionSequencer.executeGivingText(instructions: instructions)
+        let (resultText, success, _) = InstructionSequencer.executeGivingText(instructions: instructions)
         XCTAssertEqual("MiCHAEL:KAORi",resultText)
         XCTAssertTrue(success)
         
