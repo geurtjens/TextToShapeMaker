@@ -67,4 +67,18 @@ public struct ConvertInterlockTextTo {
         }
         
     }
+    static public func shapesGpuArrays(_ text: String, expectedWords: [String]) -> ([UInt32], [UInt8], Bool, [String]) {
+        
+        let (arrayOfArrays, success, wordsInGrid) = shapesArray(text, expectedWords: expectedWords)
+
+        var indexArray: [UInt32] = []
+        var shapeArray: [UInt8] = []
+        
+        for array in arrayOfArrays {
+            indexArray.append(UInt32(shapeArray.count))
+            shapeArray += array
+        }
+        
+        return (indexArray, shapeArray, success, wordsInGrid)
+    }
 }

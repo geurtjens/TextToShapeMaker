@@ -36,9 +36,14 @@ struct ConvertShapesToArray {
     }
     
     static func createInitialArrayForShape(shape: ShapeModel) -> [UInt8] {
-        let score = (shape.score - (10 * shape.placements.count)) / 2
+        let score = (shape.score - (10 * shape.placements.count))
         
-        let score_UInt8 = UInt8(score)
+        let scoreLow = score % 0xFF
+        let scoreHigh = score / 0xFF
+        
+        
+        let scoreLow_UInt8 = UInt8(scoreLow)
+        let scoreHigh_UInt8 = UInt8(scoreHigh)
         
         let wordCount_UInt8 = UInt8(shape.placements.count)
         
@@ -48,7 +53,7 @@ struct ConvertShapesToArray {
         
         
         
-        var array: [UInt8] = [wordCount_UInt8, score_UInt8, width_UInt8, height_UInt8]
+        let array: [UInt8] = [wordCount_UInt8, scoreLow_UInt8, scoreHigh_UInt8, width_UInt8, height_UInt8]
         return array
     }
     
