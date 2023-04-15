@@ -81,4 +81,51 @@ public struct ConvertInterlockTextTo {
         
         return (indexArray, shapeArray, success, wordsInGrid)
     }
+    
+    static public func fromGpuArraysToShapes( indexArray: [UInt32], shapeArray: [UInt8], words: [String]) -> ([ShapeModel], Bool) {
+
+        var success = true
+
+        var shapes: [ShapeModel] = []
+        for i in indexArray {
+            let startPos = Int(i)
+            let wordCount = Int(shapeArray[startPos])
+            
+            let interlockScoreLow = Int(shapeArray[startPos + 1])
+            let interlockScoreHigh = Int(shapeArray[startPos + 2])
+            let interlockScore = interlockScoreLow + interlockScoreHigh * 0xFF
+            let width = Int(shapeArray[startPos + 3])
+            let height = Int(shapeArray[startPos + 4])
+            
+            var placements: [PlacementModel] = []
+            
+            for j in 0..<wordCount {
+                // when j = 1 idx should be 13
+                let idx = startPos + 5 + j
+                
+                let wordId = Int(shapeArray[idx])
+                let word = words[wordId]
+                
+                let isHorizontal = Int(shapeArray[idx + wordCount]) == 1
+                let x = Int(shapeArray[idx + wordCount * 2])
+                let y = Int(shapeArray[idx + wordCount * 3])
+            
+                placements.append(PlacementModel(word: word, isHorizontal: isHorizontal, x: x, y: y))
+            }
+
+            let score = interlockScore + placements.count * 10
+            
+            let blockOffsetsCateredFor = ShapeCalculator.allowForBlockOffsetsBeingAppliedLater(placements: placements)
+            // We dont really need width, height and score to make a shape, only the placements
+            let shape = ShapeCalculator.execute(placements: blockOffsetsCateredFor)
+            
+            if shape.width != width || shape.height != height || shape.score != score {
+                success = false
+            }
+            
+            shapes.append(shape)
+        }
+        return (shapes, success)
+    }
+    
 }

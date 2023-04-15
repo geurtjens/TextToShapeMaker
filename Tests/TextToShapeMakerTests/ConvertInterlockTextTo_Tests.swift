@@ -9,6 +9,39 @@ import XCTest
 @testable import TextToShapeMaker
 final class ConvertInterlockTextTo_Tests: XCTestCase {
 
+    func test_backToShape() throws {
+        let input = "nAZARETH:nUTS + NAzARETH:zION + sING:NUTs + SInG:ZIOn"
+        
+        let expectedWords = ["NAZARETH", "NUTS", "ZION", "SING"]
+        
+        let (shapes,_,_) = ConvertInterlockTextTo.shapes(input)
+        
+        
+        let (indexArray, shapeArray, _, _) = ConvertInterlockTextTo.shapesGpuArrays(input, expectedWords: expectedWords)
+        
+        let (shapesConverted, success) = ConvertInterlockTextTo.fromGpuArraysToShapes(indexArray: indexArray, shapeArray: shapeArray, words: expectedWords)
+    
+        XCTAssertEqual(shapes[0].text, shapesConverted[0].text)
+        XCTAssertEqual(shapes[1].text, shapesConverted[1].text)
+        XCTAssertEqual(shapes[2].text, shapesConverted[2].text)
+        XCTAssertEqual(shapes[3].text, shapesConverted[3].text)
+        XCTAssertTrue(success)
+        
+//        print(shapes[0].text)
+//        print(shapesConverted[0].text)
+//
+//        print(shapes[1].text)
+//        print(shapesConverted[1].text)
+//
+//        print(shapes[2].text)
+//        print(shapesConverted[2].text)
+//
+//        print(shapes[3].text)
+//        print(shapesConverted[3].text)
+//
+
+
+    }
     
     func test_shapesArray() throws {
         let input = "nAZARETH:nUTS + NAzARETH:zION + sING:NUTs + SInG:ZIOn"

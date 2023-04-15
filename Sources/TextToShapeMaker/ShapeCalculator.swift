@@ -87,6 +87,19 @@ struct ShapeCalculator {
         
     }
     
+    /// When we use create shape it adds +1 offsets for each placement so we must reverse that if we want to convert placements into a shape
+    static func allowForBlockOffsetsBeingAppliedLater(placements: [PlacementModel]) -> [PlacementModel] {
+        var result: [PlacementModel] = []
+        for placement in placements {
+            if placement.isHorizontal {
+                result.append(PlacementModel(word: placement.word, isHorizontal: placement.isHorizontal, x: placement.x, y: placement.y - 1))
+            } else {
+                result.append(PlacementModel(word: placement.word, isHorizontal: placement.isHorizontal, x: placement.x - 1, y: placement.y))
+            }
+        }
+        return result
+    }
+    
     static func fixPlacements(placements: [PlacementModel]) -> [PlacementModel] {
         var result: [PlacementModel] = []
         for p in placements {
